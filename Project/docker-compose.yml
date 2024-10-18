@@ -1,0 +1,23 @@
+services:
+  client:
+    build: ./MERNAPP/client
+    ports:
+      - "3000:3000"
+    networks:
+      - mern_network
+    environment:
+      REACT_APP_API_URL: http://backend:5000 
+  backend:
+    build: ./MERNAPP/backend
+    ports:
+      - "5000:5000"
+    networks:
+      - mern_network 
+    environment:
+      NODE_ENV: development
+      MONGO_URI: mongodb+srv://aleenaarif14:123@<cluster>.mongodb.net/yo?retryWrites=true&w=majority  
+    depends_on:
+      - client
+networks:
+  mern_network:
+    driver: local
